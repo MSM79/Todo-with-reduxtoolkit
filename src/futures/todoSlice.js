@@ -19,7 +19,10 @@ export const todoSlice = createSlice({
         }
       }
     },
+    searchTodo: (state, action) => {
+      return state.name.filter((x) => x.name === action.payload.name);
+    },
   },
 });
-export const { addTodo, removeTodo, editTodo } = todoSlice.actions;
+export const { addTodo, removeTodo, editTodo, searchTodo } = todoSlice.actions;
 export default todoSlice.reducer;

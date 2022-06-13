@@ -1,17 +1,16 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 
-import { searchTodo } from '../futures/todoSlice';
+import { changeValue } from '../futures/SearchSlice';
 
 function Search() {
-  const dispatch = new useDispatch();
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(searchTodo({ name: e.target.search.value }));
+  const handleSearch = (e) => {
+    dispatch(changeValue(e.target.value));
   };
   return (
-    <form className="flex justify-center w-full mt-3 mb-7" onSubmit={handleSubmit}>
+    <form className="flex justify-center w-full mt-3 mb-7">
       <label
         for="default-search"
         class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
@@ -41,13 +40,8 @@ function Search() {
           class="block p-4 pl-10 w-full text-sm text-gray-900 bg-white rounded-lg border focus:outline-none focus:shadow-outline"
           placeholder="Search Tasks ..."
           name="search"
+          onChange={handleSearch}
         />
-        <button
-          type="submit"
-          class="text-white absolute right-2.5 bottom-2.5 bg-gray hover:bg-blue-800 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Search
-        </button>
       </div>
     </form>
   );

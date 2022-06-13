@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addTodo, removeTodo, editTodo } from '../futures/todoSlice';
+import { addTodo } from '../futures/todoSlice';
 import ShowTodo from '../components/showTodo';
 import Search from '../components/Search';
 
@@ -12,7 +12,10 @@ function Todo() {
   const dispatch = useDispatch();
   const shortid = require('shortid');
 
-  const todos = useSelector((state) => state.todo);
+  const [todos, search] = useSelector((state) => [state.todo, state.search]);
+  console.log(todos, search);
+
+  const filteredTodos = todos.filter((d) => d.name.includes(search));
 
   let handleSubmit = (e) => {
     e.preventDefault();
@@ -54,7 +57,7 @@ function Todo() {
 
       {/* Show TODO */}
       <div className="flex flex-col items-center">
-        {todos.map((todo) => (
+        {filteredTodos.map((todo) => (
           <div
             key={todo.id}
             style={{ width: '715px' }}
